@@ -1,6 +1,6 @@
 
 const TWILIO_ACCOUNT_SID = 'AC28c81c5f7e86e47f0fd9fcfa8aa9e26e'
-const TWILIO_AUTH_TOKEN = '43888979ca488c6954ad8cd2397a34e4'//253587a6467def3a2f258fc632c113e2 4719dbd75780642f490c7d4213b51a53
+const TWILIO_AUTH_TOKEN = 'f65ed959aa4480518c95c6413d576121'//VIVE MUDANDO, PEGAR UM NOVO NA PARTE INICIAL DO CONSOLE DA TWILIO;
 const TWILIO_VERIFY_SERVICE_SID = 'VAdbbb6ea279b4c1b47c37120ff3766aee'
 const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 const express = require('express');
@@ -20,7 +20,8 @@ app.get('/', (req, res) =>{
     
 })
 
-app.get('/teste', (req, res) =>{
+
+app.post('/teste', (req, res) =>{
     // return response.json({messege:'Sever is up'});
     const readline = require('readline').createInterface({
     input: process.stdin,
@@ -37,59 +38,29 @@ app.get('/teste', (req, res) =>{
             return data.status;
         });
     }
-    const number = req.body.number;
-    const code = req.body.code;
-    function checkVerification(number, code) {
-    return client.verify.v2.services(TWILIO_VERIFY_SERVICE_SID)
-        .verificationChecks
-        .create({
-            to: number,
-            code: code
-        }).then((data) => {
-            return data.status;
-        });
-    }
+    
 
-    async function verifyUser(phoneNumber) {
-        console.log('TWILIO_ACCOUNT_SID')
-    const status = await sendVerificationCode(phoneNumber);
-    if (status === 'pending') {
-        readline.question('Enter code: ', code => {
-            checkVerification(phoneNumber, code)
-                .then((data) => {
-                    if (data === 'approved') {
-                        readline.write('User verified');
-                        readline.close();
-                    } else {
-                        readline.write('User not verified');
-                        readline.close();
-                    }
-                });
-        });
+    
 
-    }
-    else {
-        return 'Error sending verification code';
-    }
-    }
-
-    verifyUser('+55'+ `${req.body.number}`);
+    sendVerificationCode(`${req.body.number}`);
     
 })
 
-app.get('/send-otp', (req,res) =>{
+app.get('/teste1', (req,res) =>{
     const number = req.body.number;
     const code = req.body.code;
-    function checkVerification(number, code) {
+    let checkVerification = (number, code)=> {
     return client.verify.v2.services(TWILIO_VERIFY_SERVICE_SID)
         .verificationChecks
         .create({
             to: number,
             code: code
         }).then((data) => {
+            console.log(data)
             return data.status;
         });
     }
+    checkVerification(number,code)
 })
 
 
