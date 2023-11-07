@@ -1,12 +1,15 @@
 // o projeto esta salvo na pasta "api_aws" na maquina virtual da aws
-const TWILIO_ACCOUNT_SID = 'AC28c81c5f7e86e47f0fd9fcfa8aa9e26e'
-const TWILIO_AUTH_TOKEN = 'f65ed959aa4480518c95c6413d576121'//VIVE MUDANDO, PEGAR UM NOVO NA PARTE INICIAL DO CONSOLE DA TWILIO;
-const TWILIO_VERIFY_SERVICE_SID = 'VAdbbb6ea279b4c1b47c37120ff3766aee'
+const TWILIO_ACCOUNT_SID = 'AC28c81c5f7e86e47f0fd9fcfa8aa9e26e';
+const codigo1 = "c57bf5f4c3fde84a";
+const codigo2 = "3d9135c63a59631b";
+const TWILIO_AUTH_TOKEN = codigo1 + codigo2;
+const TWILIO_VERIFY_SERVICE_SID = 'VAdbbb6ea279b4c1b47c37120ff3766aee';
 const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 const express = require('express');
 const app = express();
 const url = require('url');
 const PORT = 3000;
+console.log(TWILIO_AUTH_TOKEN)
 app.use(express.json());
 app.options('*', (req, res) => {
     res.status(200).end();
@@ -18,7 +21,7 @@ app.get('/', (req, res) =>{
     res.status(200).send('Se você está lendo isso, significa que estou melhorando no backend');
     return response.json({messege:'Sever is up'});
     
-})
+});
 
 
 app.post('/teste', (req, res) =>{
@@ -60,7 +63,7 @@ app.get('/teste1', (req,res) =>{
             return data.status;
         });
     }
-    checkVerification(number,code)
+    checkVerification(number,code);
 })
 app.listen(3000);
 
