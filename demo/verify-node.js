@@ -1,4 +1,4 @@
-
+// o projeto esta salvo na pasta "api_aws" na maquina virtual da aws
 const TWILIO_ACCOUNT_SID = 'AC28c81c5f7e86e47f0fd9fcfa8aa9e26e'
 const TWILIO_AUTH_TOKEN = 'f65ed959aa4480518c95c6413d576121'//VIVE MUDANDO, PEGAR UM NOVO NA PARTE INICIAL DO CONSOLE DA TWILIO;
 const TWILIO_VERIFY_SERVICE_SID = 'VAdbbb6ea279b4c1b47c37120ff3766aee'
@@ -62,8 +62,8 @@ app.get('/teste1', (req,res) =>{
     }
     checkVerification(number,code)
 })
+app.listen(3000);
 
-
-app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}/`);
-  });
+// app.listen(PORT, () => {
+//     console.log(`Servidor rodando em http://localhost:${PORT}/`);
+//   });
