@@ -38,6 +38,7 @@ app.post('/teste', (req, res) =>{
             to: phoneNumber,
             channel: 'sms'
         }).then((data) => {
+            res.status(200).send('dados enviados')
             return data.status;
         });
     }
@@ -60,7 +61,11 @@ app.get('/teste1', (req,res) =>{
             code: code
         }).then((data) => {
             console.log(data)
+            res.status(200).send(`Se você está lendo isso, significa que estou melhorando no backend status: ${data.status}`);
             return data.status;
+        }).catch((error) => {
+            console.error(error);
+            res.status(500).send('Erro ao verificar o código.');
         });
     }
     checkVerification(number,code);
