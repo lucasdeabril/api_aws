@@ -9,10 +9,17 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const url = require('url');
-const PORT = 3000;
 console.log(TWILIO_AUTH_TOKEN)
+
 app.use(cors());
 app.use(express.json());
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 app.options('*', (req, res) => {
     res.status(200).end();
   });
@@ -25,20 +32,9 @@ app.get('/', (req, res) =>{
     
 });
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-  });
 
 app.post('/teste', (req, res) =>{
-    // return response.json({messege:'Sever is up'});
-    const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-    });
-
+    const phoneNumber = req.body.number;
     function sendVerificationCode(phoneNumber) {
     return client.verify.v2.services(TWILIO_VERIFY_SERVICE_SID)
         .verifications
@@ -48,6 +44,9 @@ app.post('/teste', (req, res) =>{
         }).then((data) => {
             res.status(200).send('dados enviados')
             return data.status;
+        }).catch((error) => {
+            console.error(error);
+            res.status(500).send('Erro ao enviar o código de verificação.');
         });
     }
     
