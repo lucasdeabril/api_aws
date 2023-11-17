@@ -7,9 +7,11 @@ const TWILIO_VERIFY_SERVICE_SID = 'VAdbbb6ea279b4c1b47c37120ff3766aee';
 const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const url = require('url');
 const PORT = 3000;
 console.log(TWILIO_AUTH_TOKEN)
+app.use(cors());
 app.use(express.json());
 app.options('*', (req, res) => {
     res.status(200).end();
