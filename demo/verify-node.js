@@ -1,5 +1,6 @@
 // o projeto esta salvo na pasta "api_aws" na maquina virtual da aws
 const TWILIO_ACCOUNT_SID = 'AC28c81c5f7e86e47f0fd9fcfa8aa9e26e';
+const https = require('https');
 const codigo1 = "c57bf5f4c3fde84a";
 const codigo2 = "3d9135c63a59631b";
 const TWILIO_AUTH_TOKEN = codigo1 + codigo2;
@@ -9,7 +10,16 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const url = require('url');
-console.log(TWILIO_AUTH_TOKEN)
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('path/to/private-key.pem'),
+  cert: fs.readFileSync('path/to/certificate.pem')
+};
+
+const server = https.createServer(options, app);
+
+
 
 app.use(cors());
 app.use(express.json());
@@ -77,8 +87,6 @@ app.get('/teste1', (req,res) =>{
     }
     checkVerification(number,code);
 })
-app.listen(3000);
-
-// app.listen(PORT, () => {
-//     console.log(`Servidor rodando em http://localhost:${PORT}/`);
-//   });
+server.listen(443, () => {
+    console.log('Server is running on port 443');
+  });
