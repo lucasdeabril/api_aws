@@ -13,8 +13,8 @@ const url = require('url');
 const fs = require('fs');
 
 const options = {
-  key: fs.readFileSync('path/to/private-key.pem'),
-  cert: fs.readFileSync('path/to/certificate.pem')
+key: fs.readFileSync('path/to/private-key.pem'),
+cert: fs.readFileSync('path/to/certificate.pem')
 };
 
 const server = https.createServer(options, app);
@@ -25,46 +25,45 @@ app.use(cors());
 app.use(express.json());
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    next();
+res.setHeader('Access-Control-Allow-Origin', '*');
+res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+next();
 });
 app.options('*', (req, res) => {
-    res.status(200).end();
-  });
+res.status(200).end();
+});
 
 
 
 app.get('/', (req, res) =>{
-    res.status(200).send('Se você está lendo isso, significa que estou melhorando no backend');
-    return response.json({messege:'Sever is up'});
-    
+res.status(200).send('Se você está lendo isso, significa que estou melhorando no backend');
+return response.json({messege:'Sever is up'});
+
 });
 
 
 app.post('/teste', (req, res) =>{
-    const phoneNumber = req.body.number;
-    function sendVerificationCode(phoneNumber) {
-    return client.verify.v2.services(TWILIO_VERIFY_SERVICE_SID)
-        .verifications
-        .create({
-            to: phoneNumber,
-            channel: 'sms'
-        }).then((data) => {
-            res.status(200).send('dados enviados')
-            return data.status;
-        }).catch((error) => {
-            console.error(error);
-            res.status(500).send('Erro ao enviar o código de verificação.');
-        });
-    }
-    
+function sendVerificationCode(phoneNumber) {
+return client.verify.v2.services(TWILIO_VERIFY_SERVICE_SID)
+    .verifications
+    .create({
+        to: phoneNumber,
+        channel: 'sms'
+    }).then((data) => {
+        res.status(200).send('dados enviados')
+        return data.status;
+    }).catch((error) => {
+        console.error(error);
+        res.status(500).send('Erro ao enviar o código de verificação.');
+    });
+}
 
-    
 
-    sendVerificationCode(`${req.body.number}`);
-    
+
+
+sendVerificationCode(`${req.body.number}`);
+
 })
 
 app.get('/teste1', (req,res) =>{
@@ -89,4 +88,4 @@ app.get('/teste1', (req,res) =>{
 })
 server.listen(443, () => {
     console.log('Server is running on port 443');
-  });
+});
