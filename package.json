@@ -1,0 +1,24 @@
+{
+  "name": "api_aws",
+  "version": "1.0.0",
+  "description": "",
+  "main": "verify-node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasdeabril/api_aws.git"
+  },
+  "author": "lucas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasdeabril/api_aws/issues"
+  },
+  "homepage": "https://github.com/lucasdeabril/api_aws#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "twilio": "^4.21.0"
+  }
+}
